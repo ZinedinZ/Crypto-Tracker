@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+<body>
+<img style="width: 1680px"   src="static/crypto.png">
+<h2 style="text-align:center; padding:20px">Today's Cryptocurrency Prices by Market Cap</h2>
+<div class="d-flex justify-content-center">
+<table style="width:700px;" class="table table-dark table-hover items-center">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Cryptocurrency</th>
+      <th scope="col">Tag</th>
+      <th scope="col">Price</th>
+        <th scope="col">24h %</th>
+        <th scope="col">Market Cap</th>
+         <th scope="col">Rank</th>
+    </tr>
+  </thead>
+  <tbody>
+<!--    List Columns in table-->
+  {% for key, value in data.items() %}
+    <tr>
+        <th scope="row">{{loop.index}}</th>
+      <td>{{value["name"]}}</td>
+      <td>{{value["symbol"]}}</td>
+        <td>{{'{:,.2f}'.format(value["quote"]["USD"]["price"]|round(2))}}
+      {% if value["quote"]["USD"]["percent_change_24h"] > 0 %}
+           <td style="color: green">{{value["quote"]["USD"]["percent_change_24h"]|round(2)}} %</td>
+      {% else %}
+            <td style="color: red">{{value["quote"]["USD"]["percent_change_24h"]|round(2)}} %</td>
+      {% endif %}
+
+        <td>{{'{:,.2f}'.format(value["quote"]["USD"]["market_cap"]|round(2))}} $</td>
+        <td>{{value["cmc_rank"]}}</td>
+
+
+
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
